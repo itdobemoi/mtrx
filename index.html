@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Matrix Effect</title>
+<style>
+  body {
+    margin: 0;
+    overflow: hidden;
+    background-color: black;
+  }
+
+  .stream {
+    position: absolute;
+    color: lime;
+    font-size: 16px;
+    pointer-events: none;
+    white-space: nowrap;
+  }
+</style>
+</head>
+<body>
+<script>
+  // Function to generate a random character from a given set
+  function randomChar(characters) {
+    return characters.charAt(Math.floor(Math.random() * characters.length));
+  }
+
+  // Function to create a stream
+  function createStream() {
+    const stream = document.createElement('div');
+    stream.className = 'stream';
+    stream.style.top = Math.random() * window.innerHeight + 'px';
+    stream.style.left = Math.random() * window.innerWidth + 'px';
+    stream.speed = Math.random() * 5 + 2; // Adjust the speed as needed
+    stream.characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+~`|}{[]\:;?><,./-=';
+    stream.textContent = randomChar(stream.characters);
+    document.body.appendChild(stream);
+
+    // Function to update stream position and character
+    function update() {
+      stream.style.top = (parseFloat(stream.style.top) + stream.speed) + 'px';
+      if (parseFloat(stream.style.top) > window.innerHeight) {
+        stream.style.top = -30 + 'px';
+        stream.textContent = randomChar(stream.characters);
+      }
+    }
+
+    setInterval(update, 50);
+  }
+
+  // Create multiple streams
+  const numStreams = 30; // Adjust the number of streams as needed
+  for (let i = 0; i < numStreams; i++) {
+    createStream();
+  }
+</script>
+</body>
+</html>
